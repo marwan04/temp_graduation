@@ -31,10 +31,11 @@
                     <td>{{ $course->CourseName }}</td>
                     <td>{{ $course->Credits }}</td>
                     <td>
-			<a href="{{ route('instructor.courses.edit', ['course' => $course->id]) }}" class="btn btn-warning btn-sm">✏️ Edit</a>
+                        <!-- ✅ Corrected Edit Link -->
+                        <a href="{{ route('instructor.courses.edit', $course) }}" class="btn btn-warning btn-sm">✏️ Edit</a>
 
-                        <!-- DELETE FORM -->
-                        <form action="{{ route('courses.destroy', $course->id) }}" method="POST" style="display:inline;">
+                        <!-- ✅ Corrected DELETE FORM -->
+                        <form action="{{ route('instructor.courses.destroy', $course) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">🗑 Delete</button>
