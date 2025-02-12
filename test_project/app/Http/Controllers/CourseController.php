@@ -10,12 +10,12 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::all();
-        return view('courses.index', compact('courses'));
+        return view('instructor.courses.index', compact('courses'));  // ✅ Fixed Path
     }
 
     public function create()
     {
-        return view('courses.create');
+        return view('instructor.courses.create'); // ✅ Fixed Path
     }
 
     public function store(Request $request)
@@ -27,13 +27,13 @@ class CourseController extends Controller
 
         Course::create($request->all());
 
-        return redirect()->route('courses.index')->with('success', 'Course created successfully!');
+        return redirect()->route('instructor.courses')->with('success', 'Course created successfully!'); // ✅ Fixed Route
     }
 
     public function edit($id)
     {
         $course = Course::findOrFail($id);
-        return view('courses.edit', compact('course'));
+        return view('instructor.courses.edit', compact('course')); // ✅ Fixed Path
     }
 
     public function update(Request $request, $id)
@@ -46,7 +46,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $course->update($request->all());
 
-        return redirect()->route('courses.index')->with('success', 'Course updated successfully!');
+        return redirect()->route('instructor.courses')->with('success', 'Course updated successfully!'); // ✅ Fixed Route
     }
 
     public function destroy($id)
@@ -54,7 +54,7 @@ class CourseController extends Controller
         $course = Course::findOrFail($id);
         $course->delete();
 
-        return redirect()->route('courses.index')->with('success', 'Course deleted successfully!');
+        return redirect()->route('instructor.courses')->with('success', 'Course deleted successfully!'); // ✅ Fixed Route
     }
 }
 

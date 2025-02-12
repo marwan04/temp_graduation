@@ -5,7 +5,8 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomRegisterController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\InstructorDashboardController;
-use App\Http\Controllers\InstructorController; // Import Instructor Controller
+use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\CourseController; // Ensure CourseController is properly imported
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,11 @@ Route::get('/', function () {
 
 // Authentication Routes
 Route::get('/login', function () {
-    return view('auth.login'); // Custom login view
+    return view('auth.login');
 })->name('login');
 Route::post('/login', [CustomAuthController::class, 'login']);
 Route::get('/register', function () {
-    return view('auth.register'); // Custom registration form
+    return view('auth.register');
 })->name('register');
 Route::post('/register', [CustomRegisterController::class, 'register']);
 
@@ -43,47 +44,77 @@ Route::middleware(['auth:student'])->group(function () {
 Route::middleware(['auth:instructor'])->group(function () {
     Route::get('/instructor-dashboard', [InstructorDashboardController::class, 'index'])->name('instructor.dashboard');
 
-    // 🟢 Course Management
-    Route::get('/courses', [InstructorController::class, 'courses'])->name('instructor.courses');
-    Route::post('/courses/store', [InstructorController::class, 'storeCourse'])->name('courses.store');
-    Route::put('/courses/update/{id}', [InstructorController::class, 'updateCourse'])->name('courses.update');
-    Route::delete('/courses/delete/{id}', [InstructorController::class, 'deleteCourse'])->name('courses.delete');
+    // ✅ Properly namespaced Course Management Routes
+    Route::resource('instructor/courses', CourseController::class)->parameters([
+        'courses' => 'course',
+    ])->names([
+        'index' => 'instructor.courses',
+        'create' => 'instructor.courses.create',
+        'store' => 'instructor.courses.store',
+        'edit' => 'instructor.courses.edit',
+        'update' => 'instructor.courses.update',
+        'destroy' => 'instructor.courses.destroy',
+        'show' => 'instructor.courses.show',
+    ]);
+    // ✅ Section Management
+    Route::resource('instructor/sections', InstructorController::class, [
+        'only' => ['index', 'store', 'update', 'destroy']
+    ])->names([
+        'index' => 'instructor.sections',
+        'store' => 'instructor.sections.store',
+        'update' => 'instructor.sections.update',
+        'destroy' => 'instructor.sections.destroy',
+    ]);
 
-    // 🟢 Section Management
-    Route::get('/sections', [InstructorController::class, 'sections'])->name('instructor.sections');
-    Route::post('/sections/store', [InstructorController::class, 'storeSection'])->name('sections.store');
-    Route::put('/sections/update/{id}', [InstructorController::class, 'updateSection'])->name('sections.update');
-    Route::delete('/sections/delete/{id}', [InstructorController::class, 'deleteSection'])->name('sections.delete');
+    // ✅ Enrollment Management
+    Route::resource('instructor/enrollments', InstructorController::class, [
+        'only' => ['index', 'store', 'update', 'destroy']
+    ])->names([
+        'index' => 'instructor.enrollments',
+        'store' => 'instructor.enrollments.store',
+        'update' => 'instructor.enrollments.update',
+        'destroy' => 'instructor.enrollments.destroy',
+    ]);
 
-    // 🟢 Enrollment Management
-    Route::get('/enrollments', [InstructorController::class, 'enrollments'])->name('instructor.enrollments');
-    Route::post('/enrollments/store', [InstructorController::class, 'storeEnrollment'])->name('enrollments.store');
-    Route::put('/enrollments/update/{id}', [InstructorController::class, 'updateEnrollment'])->name('enrollments.update');
-    Route::delete('/enrollments/delete/{id}', [InstructorController::class, 'deleteEnrollment'])->name('enrollments.delete');
+    // ✅ Plan Management
+    Route::resource('instructor/plans', InstructorController::class, [
+        'only' => ['index', 'store', 'update', 'destroy']
+    ])->names([
+        'index' => 'instructor.plans',
+        'store' => 'instructor.plans.store',
+        'update' => 'instructor.plans.update',
+        'destroy' => 'instructor.plans.destroy',
+    ]);
 
-    // 🟢 Plan Management
-    Route::get('/plans', [InstructorController::class, 'plans'])->name('instructor.plans');
-    Route::post('/plans/store', [InstructorController::class, 'storePlan'])->name('plans.store');
-    Route::put('/plans/update/{id}', [InstructorController::class, 'updatePlan'])->name('plans.update');
-    Route::delete('/plans/delete/{id}', [InstructorController::class, 'deletePlan'])->name('plans.delete');
+    // ✅ Role Management
+    Route::resource('instructor/roles', InstructorController::class, [
+        'only' => ['index', 'store', 'update', 'destroy']
+    ])->names([
+        'index' => 'instructor.roles',
+        'store' => 'instructor.roles.store',
+        'update' => 'instructor.roles.update',
+        'destroy' => 'instructor.roles.destroy',
+    ]);
 
-    // 🟢 Role Management
-    Route::get('/roles', [InstructorController::class, 'roles'])->name('instructor.roles');
-    Route::post('/roles/store', [InstructorController::class, 'storeRole'])->name('roles.store');
-    Route::put('/roles/update/{id}', [InstructorController::class, 'updateRole'])->name('roles.update');
-    Route::delete('/roles/delete/{id}', [InstructorController::class, 'deleteRole'])->name('roles.delete');
+    // ✅ Student Progress Management
+    Route::resource('instructor/progress', InstructorController::class, [
+        'only' => ['index', 'store', 'update', 'destroy']
+    ])->names([
+        'index' => 'instructor.progress',
+        'store' => 'instructor.progress.store',
+        'update' => 'instructor.progress.update',
+        'destroy' => 'instructor.progress.destroy',
+    ]);
 
-    // 🟢 Student Progress Management
-    Route::get('/progress', [InstructorController::class, 'progress'])->name('instructor.progress');
-    Route::post('/progress/store', [InstructorController::class, 'storeProgress'])->name('progress.store');
-    Route::put('/progress/update/{id}', [InstructorController::class, 'updateProgress'])->name('progress.update');
-    Route::delete('/progress/delete/{id}', [InstructorController::class, 'deleteProgress'])->name('progress.delete');
-
-    // 🟢 Team Management
-    Route::get('/teams', [InstructorController::class, 'teams'])->name('instructor.teams');
-    Route::post('/teams/store', [InstructorController::class, 'storeTeam'])->name('teams.store');
-    Route::put('/teams/update/{id}', [InstructorController::class, 'updateTeam'])->name('teams.update');
-    Route::delete('/teams/delete/{id}', [InstructorController::class, 'deleteTeam'])->name('teams.delete');
+    // ✅ Team Management
+    Route::resource('instructor/teams', InstructorController::class, [
+        'only' => ['index', 'store', 'update', 'destroy']
+    ])->names([
+        'index' => 'instructor.teams',
+        'store' => 'instructor.teams.store',
+        'update' => 'instructor.teams.update',
+        'destroy' => 'instructor.teams.destroy',
+    ]);
 });
 
 /*
@@ -95,3 +126,4 @@ Route::post('/logout', function () {
     Auth::logout();
     return redirect('/login');
 })->name('logout');
+
