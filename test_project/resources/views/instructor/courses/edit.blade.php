@@ -10,7 +10,7 @@
     <a href="{{ route('instructor.courses.index') }}" class="btn btn-secondary mb-3">⬅️ Back to Courses</a>
 
     <!-- ✅ FIXED: Correct Route & Form Action -->
-    <form action="{{ route('instructor.courses.update', $course->id) }}" method="POST">
+    <form action="{{ route('instructor.courses.update', $course) }}" method="POST">
         @csrf
         @method('PUT')
 
