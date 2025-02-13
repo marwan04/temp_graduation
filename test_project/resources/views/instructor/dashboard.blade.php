@@ -14,7 +14,7 @@
                         <p class="text-muted">Instructor</p>
                         <hr>
                         <ul class="nav flex-column">
-                            <li class="nav-item"><a class="nav-link text-primary fw-bold" href="{{ route('instructor.courses') }}">📚 Manage Courses</a></li>
+                            <li class="nav-item"><a class="nav-link text-primary fw-bold" href="{{ route('instructor.courses.index') }}">📚 Manage Courses</a></li>
                             <li class="nav-item"><a class="nav-link text-primary fw-bold" href="{{ route('instructor.sections') }}">📑 Manage Sections</a></li>
                             <li class="nav-item"><a class="nav-link text-primary fw-bold" href="{{ route('instructor.enrollments') }}">📋 Manage Enrollments</a></li>
                             <li class="nav-item"><a class="nav-link text-primary fw-bold" href="{{ route('instructor.plans') }}">📜 Manage Plans</a></li>
@@ -61,7 +61,7 @@
                         <div class="mt-4">
                             <h4 class="fw-bold">🔗 Quick Access</h4>
                             <div class="d-flex flex-wrap">
-                                <a href="{{ route('instructor.courses') }}" class="btn btn-outline-primary m-2">Manage Courses</a>
+                                <a href="{{ route('instructor.courses.index') }}" class="btn btn-outline-primary m-2">Manage Courses</a>
                                 <a href="{{ route('instructor.sections') }}" class="btn btn-outline-secondary m-2">Manage Sections</a>
                                 <a href="{{ route('instructor.enrollments') }}" class="btn btn-outline-success m-2">Manage Enrollments</a>
                                 <a href="{{ route('instructor.plans') }}" class="btn btn-outline-warning m-2">Manage Plans</a>
@@ -80,7 +80,7 @@
                                         <div class="card-body">
                                             <h5 class="fw-bold">Data Structures</h5>
                                             <p class="text-muted">Semester 2</p>
-                                            <a href="{{ route('instructor.courses') }}" class="btn btn-primary btn-sm">Manage Course</a>
+                                            <a href="{{ route('instructor.courses.index') }}" class="btn btn-primary btn-sm">Manage Course</a>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                         <div class="card-body">
                                             <h5 class="fw-bold">Database Management</h5>
                                             <p class="text-muted">Semester 1</p>
-                                            <a href="{{ route('instructor.courses') }}" class="btn btn-primary btn-sm">Manage Course</a>
+                                            <a href="{{ route('instructor.courses.index') }}" class="btn btn-primary btn-sm">Manage Course</a>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                         <div class="card-body">
                                             <h5 class="fw-bold">Machine Learning</h5>
                                             <p class="text-muted">Semester 3</p>
-                                            <a href="{{ route('instructor.courses') }}" class="btn btn-primary btn-sm">Manage Course</a>
+                                            <a href="{{ route('instructor.courses.index') }}" class="btn btn-primary btn-sm">Manage Course</a>
                                         </div>
                                     </div>
                                 </div>
@@ -123,3 +123,4 @@
         </div>
     </section>
 @endsection
+

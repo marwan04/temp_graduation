@@ -45,16 +45,13 @@ Route::middleware(['auth:instructor'])->group(function () {
     Route::get('/instructor-dashboard', [InstructorDashboardController::class, 'index'])->name('instructor.dashboard');
 
     // ✅ Properly namespaced Course Management Routes
-    Route::resource('instructor/courses', CourseController::class)->parameters([
-        'courses' => 'course',
-    ])->names([
-        'index' => 'instructor.courses',
+    Route::resource('instructor/courses', CourseController::class)->names([
+        'index' => 'instructor.courses.index',
         'create' => 'instructor.courses.create',
         'store' => 'instructor.courses.store',
         'edit' => 'instructor.courses.edit',
         'update' => 'instructor.courses.update',
         'destroy' => 'instructor.courses.destroy',
-        'show' => 'instructor.courses.show',
     ]);
     // ✅ Section Management
     Route::resource('instructor/sections', InstructorController::class, [
