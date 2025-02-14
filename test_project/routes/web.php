@@ -7,6 +7,7 @@ use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\InstructorDashboardController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\CourseController; // Ensure CourseController is properly imported
+use App\Http\Controllers\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,17 +55,16 @@ Route::middleware(['auth:instructor'])->group(function () {
         'destroy' => 'instructor.courses.destroy',
     ]);
     // ✅ Section Management
-    Route::resource('instructor/sections', InstructorController::class, [
-        'only' => ['index', 'store', 'update', 'destroy']
-    ])->names([
-        'index' => 'instructor.sections',
+    Route::resource('instructor/sections', SectionController::class)->names([
+        'index' => 'instructor.sections.index',
+        'create' => 'instructor.sections.create',
         'store' => 'instructor.sections.store',
+        'edit' => 'instructor.sections.edit',
         'update' => 'instructor.sections.update',
         'destroy' => 'instructor.sections.destroy',
     ]);
-
     // ✅ Enrollment Management
-    Route::resource('instructor/enrollments', InstructorController::class, [
+    /*Route::resource('instructor/enrollments', InstructorController::class, [
         'only' => ['index', 'store', 'update', 'destroy']
     ])->names([
         'index' => 'instructor.enrollments',
@@ -111,9 +111,9 @@ Route::middleware(['auth:instructor'])->group(function () {
         'store' => 'instructor.teams.store',
         'update' => 'instructor.teams.update',
         'destroy' => 'instructor.teams.destroy',
-    ]);
+    ]);*/
 });
-
+ 
 /*
 |--------------------------------------------------------------------------
 | Logout Route
