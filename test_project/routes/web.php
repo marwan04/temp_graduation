@@ -5,7 +5,7 @@ use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\CustomRegisterController;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\InstructorDashboardController;
-use App\Http\Controllers\AdminDashboardController; // ✅ Import Admin Dashboard Controller
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\InstructorController;
@@ -69,7 +69,7 @@ Route::middleware(['auth:instructor'])->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Admin Routes
+| Admin Routes (Protected by Admin Middleware)
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth:instructor'])->group(function () { // ✅ Ensure Admin Middleware is applied
@@ -93,6 +93,16 @@ Route::middleware(['auth:instructor'])->group(function () { // ✅ Ensure Admin 
         'edit' => 'admin.instructors.edit',
         'update' => 'admin.instructors.update',
         'destroy' => 'admin.instructors.destroy',
+    ]);
+
+    // Section Management
+    Route::resource('admin/sections', SectionController::class)->names([
+        'index' => 'admin.sections.index',
+        'create' => 'admin.sections.create',
+        'store' => 'admin.sections.store',
+        'edit' => 'admin.sections.edit',
+        'update' => 'admin.sections.update',
+        'destroy' => 'admin.sections.destroy',
     ]);
 });
 

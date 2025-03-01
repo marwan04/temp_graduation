@@ -10,11 +10,17 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->roleID == 1) {
+        // Ensure the user is logged in as an instructor
+        $user = Auth::guard('instructor')->user();
+
+        // Check if the user exists and has RoleID = 1 (Admin)
+        if ($user && $user->roleID == 1) {
             return $next($request);
         }
-        
-        return redirect('/instructor-dashboard')->withErrors('Unauthorized access.');
+
+        // Unauthorized: Logout and redirect to login
+        Auth::logout();
+        return redirect('/login')->withErrors('Unauthorized access.');
     }
 }
 

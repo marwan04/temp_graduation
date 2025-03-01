@@ -39,7 +39,6 @@ class CustomAuthController extends Controller
 	// 🔵 Instructor & Admin Login
 elseif (str_contains($email, '@instructordomain.com')) {
     $user = Instructor::where('email', $email)->first();
-
     if ($user) {
         Log::info("User Found: " . json_encode($user));
 
@@ -52,7 +51,7 @@ elseif (str_contains($email, '@instructordomain.com')) {
             Log::info("User Role ID: " . $roleID);
 
             // ✅ Correct Admin Redirection
-            if ($roleID === 1) {
+            if ($roleID == 1) {
                 Log::info("Admin Login Successful - Redirecting to Admin Dashboard.");
                 return redirect('/admin-dashboard');
             }
