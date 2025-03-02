@@ -3,62 +3,71 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Role;
 
 class RoleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of roles.
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+        return view('instructor.roles.index', compact('roles'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new role.
      */
     public function create()
     {
-        //
+        return view('instructor.roles.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created role.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'RoleID' => 'required|integer|unique:Role,RoleID',
+            'RoleName' => 'required|string|max:255',
+        ]);
+
+        Role::create($request->all());
+
+        return redirect()->route('instructor.roles.index')->with('success', 'Role created successfully!');
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing a role.
      */
-    public function show(string $id)
+    public function edit(Role $role)
     {
-        //
+        return view('instructor.roles.edit', compact('role'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified role.
      */
-    public function edit(string $id)
+    public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'RoleName' => 'required|string|max:255',
+        ]);
+
+        $role->update($request->only('RoleName'));
+
+        return redirect()->route('instructor.roles.index')->with('success', 'Role updated successfully!');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Remove the specified role.
      */
-    public function update(Request $request, string $id)
+    public function destroy(Role $role)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $role->delete();
+        return redirect()->route('instructor.roles.index')->with('success', 'Role deleted successfully!');
     }
 }
+

@@ -65,14 +65,6 @@ Route::middleware(['auth:instructor'])->group(function () {
         'update' => 'instructor.sections.update',
         'destroy' => 'instructor.sections.destroy',
     ]);
-    Route::resource('instructor/roles', RoleController::class)->names([
-        'index'   => 'instructor.roles.index',
-        'create'  => 'instructor.roles.create',
-        'store'   => 'instructor.roles.store',
-        'edit'    => 'instructor.roles.edit',
-        'update'  => 'instructor.roles.update',
-        'destroy' => 'instructor.roles.destroy',
-    ]);
 });
 
 /*
@@ -115,17 +107,16 @@ Route::middleware(['auth:instructor'])->group(function () { // ✅ Ensure Admin 
 
     // Role Management
     Route::resource('instructor/roles', RoleController::class)->names([
-        'index' => 'instructor.roles.index',
-        'create' => 'instructor.roles.create',
-        'store' => 'instructor.roles.store',
-        'edit' => 'instructor.roles.edit',
-        'update' => 'instructor.roles.update',
+        'index'   => 'instructor.roles.index',
+        'create'  => 'instructor.roles.create',
+        'store'   => 'instructor.roles.store',
+        'edit'    => 'instructor.roles.edit',
+        'update'  => 'instructor.roles.update',
         'destroy' => 'instructor.roles.destroy',
     ]);
 });
 
     
-
 /*
 |--------------------------------------------------------------------------
 | Logout Route

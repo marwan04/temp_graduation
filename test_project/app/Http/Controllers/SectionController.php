@@ -66,24 +66,41 @@ class SectionController extends Controller
     /**
      * Update an existing section.
      */
-    public function update(Request $request, Section $section)
-    {
-        $request->validate([
+public function update(Request $request, $id)
+{
+    \Log::info("Entering update() function for Section ID: " . $id);
+    \Log::info("Incoming Request Data: ", $request->all()); // 🛑 Log all incoming request data
+
+    try {
+        $validatedData = $request->validate([
             'semester' => 'required|string|max:20',
             'year' => 'required|integer|min:2020',
             'course_id' => 'required|exists:Course,CourseID',
             'instructor_id' => 'required|exists:Instructor,InstructorID',
         ]);
 
-        $section->update([
-            'Semester' => $request->input('semester'),
-            'Year' => $request->input('year'),
-            'CourseID' => $request->input('course_id'),
-            'InstructorID' => $request->input('instructor_id'),
-        ]);
-
-        return redirect()->route('admin.sections.index')->with('success', 'Section updated successfully!');
+        \Log::info("Validation Passed! Data: ", $validatedData);
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        \Log::error("Validation Failed!", $e->errors());
+        return redirect()->back()->withErrors($e->errors());
     }
+
+    $section = Section::findOrFail($id);
+    \Log::info("Found Section: ", $section->toArray());
+
+    // ✅ Perform update
+    $section->update([
+        'Semester' => $request->input('semester'),
+        'Year' => $request->input('year'),
+        'CourseID' => $request->input('course_id'),
+        'InstructorID' => $request->input('instructor_id'),
+    ]);
+
+    \Log::info("After Update: ", $section->toArray());
+
+    return redirect()->route('instructor.sections.index')->with('success', 'Section updated successfully!');
+}
+
 
     /**
      * Remove the section.

@@ -21,19 +21,14 @@
                             @endif
                             @if(Route::has('admin.sections.index'))
                                 <li class="nav-item">
-                                        <a class="nav-link text-primary fw-bold" href="{{ route('admin.sections.index') }}">📑 Manage Sections</a>
+                                    <a class="nav-link text-primary fw-bold" href="{{ route('admin.sections.index') }}">📑 Manage Sections</a>
                                 </li>
                             @endif
-                            @if(Route::has('admin.instructors.index'))
+			    @if(Route::has('admin.roles.index'))
                                 <li class="nav-item">
-                                        <a class="nav-link text-primary fw-bold" href="{{ route('admin.instructors.index') }}">👨‍🏫 Manage Instructors</a>
+                                    <a class="nav-link text-primary fw-bold" href="{{ route('admin.roles.index') }}">🎭 Manage Roles</a>
                                 </li>
-                            @endif
-                            @if(Route::has('admin.students.index'))
-                                <li class="nav-item">
-                                        <a class="nav-link text-primary fw-bold" href="{{ route('admin.students.index') }}">🎓 Manage Students</a>
-                                </li>
-                            @endif
+			    @endif
                         </ul>
                     </div>
                 </div>
@@ -51,9 +46,7 @@
                         <div class="row text-center">
                             @foreach ([
                                 ['📚 Total Courses', 'text-primary', $courses_count ?? 0],
-                                ['👨‍🏫 Total Instructors', 'text-success', $instructors_count ?? 0],
-                                ['👑 Total Admins', 'text-info', $admins_count ?? 0],
-                                ['🎓 Total Students', 'text-warning', $students_count ?? 0]
+                                ['👑 Total Admins', 'text-info', $admins_count ?? 0]
                             ] as [$title, $color, $count])
                             <div class="col-md-3">
                                 <div class="card shadow-sm border-0 p-3">
@@ -71,8 +64,7 @@
                                 @foreach ([
                                     'admin.courses.index' => 'Manage Courses',
                                     'admin.sections.index' => 'Manage Sections',
-                                    'admin.instructors.index' => 'Manage Instructors',
-                                    'admin.students.index' => 'Manage Students'
+                                    'admin.roles.index' => 'Manage Roles'
                                 ] as $route => $label)
                                     @if(Route::has($route))
                                         <a href="{{ route($route) }}" class="btn btn-outline-primary m-2">{{ $label }}</a>
@@ -107,4 +99,3 @@
         </div>
     </section>
 @endsection
-

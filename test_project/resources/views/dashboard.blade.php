@@ -21,17 +21,22 @@
                             @endif
                             @if(Route::has('admin.sections.index'))
                                 <li class="nav-item">
-                                        <a class="nav-link text-primary fw-bold" href="{{ route('admin.sections.index') }}">📑 Manage Sections</a>
+                                    <a class="nav-link text-primary fw-bold" href="{{ route('admin.sections.index') }}">📑 Manage Sections</a>
                                 </li>
                             @endif
                             @if(Route::has('admin.instructors.index'))
                                 <li class="nav-item">
-                                        <a class="nav-link text-primary fw-bold" href="{{ route('admin.instructors.index') }}">👨‍🏫 Manage Instructors</a>
+                                    <a class="nav-link text-primary fw-bold" href="{{ route('admin.instructors.index') }}">👨‍🏫 Manage Instructors</a>
                                 </li>
                             @endif
                             @if(Route::has('admin.students.index'))
                                 <li class="nav-item">
-                                        <a class="nav-link text-primary fw-bold" href="{{ route('admin.students.index') }}">🎓 Manage Students</a>
+                                    <a class="nav-link text-primary fw-bold" href="{{ route('admin.students.index') }}">🎓 Manage Students</a>
+                                </li>
+                            @endif
+                            @if(Route::has('admin.roles.index'))
+                                <li class="nav-item">
+                                    <a class="nav-link text-primary fw-bold" href="{{ route('admin.roles.index') }}">🎭 Manage Roles</a>
                                 </li>
                             @endif
                         </ul>
@@ -72,7 +77,8 @@
                                     'admin.courses.index' => 'Manage Courses',
                                     'admin.sections.index' => 'Manage Sections',
                                     'admin.instructors.index' => 'Manage Instructors',
-                                    'admin.students.index' => 'Manage Students'
+                                    'admin.students.index' => 'Manage Students',
+                                    'admin.roles.index' => 'Manage Roles'
                                 ] as $route => $label)
                                     @if(Route::has($route))
                                         <a href="{{ route($route) }}" class="btn btn-outline-primary m-2">{{ $label }}</a>
